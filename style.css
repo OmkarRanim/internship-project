@@ -1,0 +1,26 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 40px;
+    background-color: #f4f4f4;
+    color: #333;
+}
+h2, h3 {
+    color: #1a73e8;
+}
+input, textarea, select, button {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+button {
+    background-color: #1a73e8;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #0f5bb5;
+}

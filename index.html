@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Builder</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+        }
+        form {
+            max-width: 600px;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+        button {
+            margin-top: 15px;
+            padding: 10px 20px;
+        }
+        iframe {
+            width: 80%;
+            height: 600px;
+            border: 1px solid #ccc;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Resume Builder</h2>
+    <form id="resumeForm" method="post" action="/generate">
+        <label>Name:</label>
+        <input type="text" name="name" required>
+        
+        <label>Email:</label>
+        <input type="email" name="email" required>
+        
+        <label>Phone:</label>
+        <input type="text" name="phone" required>
+        
+        <label>Education:</label>
+        <textarea name="education" required></textarea>
+        
+        <label>Experience:</label>
+        <textarea name="experience" required></textarea>
+        
+        <label>Skills:</label>
+        <textarea name="skills" required></textarea>
+        
+        <label>Choose Template:</label>
+        <select name="template">
+            <option value="resume_template1">Template 1</option>
+            <option value="resume_template2">Template 2</option>
+            <option value="resume_template3">Template 3</option>
+            <option value="resume_template4">Template 4</option>
+            <option value="resume_template5">Template 5</option>
+        </select>
+
+        <div>
+            <button type="button" onclick="showPreview()">Preview</button>
+            <button type="submit">Download PDF</button>
+        </div>
+    </form>
+
+    <iframe id="previewFrame"></iframe>
+
+    <script>
+        function showPreview() {
+            const form = document.getElementById('resumeForm');
+            const formData = new FormData(form);
+
+            fetch('/preview-frame', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.text())
+            .then(html => {
+                const blob = new Blob([html], { type: 'text/html' });
+                const url = URL.createObjectURL(blob);
+                const previewFrame = document.getElementById('previewFrame');
+                previewFrame.src = url;
+            })
+            .catch(error => {
+                console.error('Error loading preview:', error);
+            });
+        }
+    </script>
+</body>
+</html>
