@@ -1,2 +1,2 @@
-# internship-project
+# resume maker
 creating attractive resumes
